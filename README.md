@@ -14,7 +14,7 @@ Serving ./ on :8080
 serve `/var/www` on `0.0.0.0:7070`:
 
 ```console
-$ sghs -path . -addr "0.0.0.0:7070"
-Serving ./ on 0.0.0.0:7070
+$ sghs -path /var/www -addr "0.0.0.0:7070"
+Serving /var/www on 0.0.0.0:7070
 ```
 
