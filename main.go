@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"log"
 	"net/http"
 )
 
@@ -11,9 +12,9 @@ func main() {
 	flag.StringVar(&path, "path", ".", "directory to serve")
 	flag.Parse()
 
-	print("Serving ./ on " + addr + "\n")
+	log.Printf("Serving ./ on %s\n", addr)
 	http.Handle("/", http.FileServer(http.Dir("./")))
 	if err := http.ListenAndServe(addr, nil); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
