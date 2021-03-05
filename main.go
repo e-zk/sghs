@@ -8,7 +8,7 @@ import (
 
 func main() {
 	var addr, path string
-	flag.StringVar(&addr, "a", ":8080", "address:port run server on")
+	flag.StringVar(&addr, "a", ":8080", "address:port to serve from")
 	flag.StringVar(&path, "p", ".", "directory to serve")
 	flag.Parse()
 
