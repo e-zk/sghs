@@ -12,7 +12,7 @@ func main() {
 	flag.StringVar(&path, "p", ".", "directory to serve")
 	flag.Parse()
 
-	log.Printf("Serving ./ on %s\n", addr)
+	log.Printf("Serving %s on %s\n", path, addr)
 	http.Handle("/", http.FileServer(http.Dir("./")))
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatal(err)
