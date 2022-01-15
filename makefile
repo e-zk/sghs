@@ -4,15 +4,16 @@
 
 # install location
 PREFIX = /usr/local
+BINDIR = bin
 
 sghs: main.go
 	go build -ldflags "-w -s" -o sghs -v main.go
 
 install: sghs
-	install -c -m 0755 sghs $(PREFIX)/bin
+	install -c -m 0755 sghs $(PREFIX)/$(BINDIR)
 
 uninstall:
-	rm -f $(PREFIX)/bin/sghs
+	rm -f $(PREFIX)/$(BINDIR)/sghs
 
 clean:
 	go clean
