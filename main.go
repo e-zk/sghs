@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -39,18 +40,18 @@ func main() {
 	if tls != "" {
 		s := strings.Split(tls, ":")
 		if len(s) < 2 || s[0] == "" || s[1] == "" {
-			log.Fatal("Invalid cert/key path")
+			log.Fatal("error: Invalid cert/key path")
 		}
 
 		certFile = s[0]
 		_, err := os.Open(certFile)
 		if os.IsNotExist(err) {
-			log.Fatal("Given cert file does not exist")
+			log.Fatal("error: Given cert file does not exist")
 		}
 		keyFile = s[1]
 		_, err = os.Open(keyFile)
 		if os.IsNotExist(err) {
-			log.Fatal("Given cert key file does not exist")
+			log.Fatal("error: Given cert key file does not exist")
 		}
 	}
 
@@ -60,13 +61,13 @@ func main() {
 	// if tls cert has been given, serve tls
 	// otherwise serve plain http
 	if tls != "" {
-		log.Printf("Serving %s on %s (tls)\n", path, addr)
-		log.Printf("Using:\ncert: %s\nkey: %s\n", certFile, keyFile)
+		fmt.Fprintf(os.Stderr, "Serving %s on %s (tls)\n", path, addr)
+		fmt.Fprintf(os.Stderr, "Using cert: %s\nUsing cert key: %s\n", certFile, keyFile)
 		if err := http.ListenAndServeTLS(addr, certFile, keyFile, nil); err != nil {
 			log.Fatal(err)
 		}
 	} else {
-		log.Printf("Serving %s on %s\n", path, addr)
+		fmt.Fprintf(os.Stderr, "Serving %s on %s\n", path, addr)
 		if err := http.ListenAndServe(addr, nil); err != nil {
 			log.Fatal(err)
 		}
