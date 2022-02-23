@@ -11,7 +11,7 @@ func main() {
 	var addr, path, tls, certFile, keyFile string
 	flag.StringVar(&addr, "l", ":8080", "[address]:port to listen on")
 	flag.StringVar(&path, "p", ".", "path to serve")
-	flag.StringVar(&certFile, "t", "", "tls cert_path:key_path")
+	flag.StringVar(&tls, "t", "", "tls cert_path:key_path")
 	flag.Parse()
 
 	if tls != "" {
