@@ -36,7 +36,7 @@ func main() {
 
 	// TODO custom handler that logs requests
 	// TODO -q (quiet) flag (no logging)
-	http.Handle("/", http.FileServer(http.Dir("./")))
+	http.Handle("/", http.FileServer(http.Dir(path)))
 
 	// if tls cert has been given, serve tls
 	if tls != "" {
