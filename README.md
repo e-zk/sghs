@@ -41,6 +41,5 @@ serve the current directory on port 7000 using certs in `/etc/ssl`:
 
 	$ sghs -l ":7000" -t "/etc/ssl/mycert.pem:/etc/ssl/private/mycert-key.pem"
 	Serving . on :7070 (tls)
-	Using:
-	cert: /etc/ssl/mycert.pem
-	key: /etc/ssl/private/mycert-key.pem
+	Using cert: /etc/ssl/mycert.pem
+	Using key: /etc/ssl/private/mycert-key.pem
