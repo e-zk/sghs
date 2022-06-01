@@ -16,7 +16,7 @@ var (
 )
 
 // "middleware" that logs the request details then passes it on
-func LogHandler(h http.Handler) http.Handler {
+func logHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// print to stdout
 		if !quiet {
@@ -57,8 +57,8 @@ func main() {
 		}
 	}
 
-	// use the LogHandler
-	http.Handle("/", LogHandler(http.FileServer(http.Dir(path))))
+	// use the logHandler
+	http.Handle("/", logHandler(http.FileServer(http.Dir(path))))
 
 	// chroot if requested
 	if chroot {
@@ -69,13 +69,17 @@ func main() {
 	// if tls cert has been given, serve tls
 	// otherwise serve plain http
 	if tls != "" {
-		fmt.Fprintf(os.Stderr, "Serving %s on %s (tls)\n", path, addr)
-		fmt.Fprintf(os.Stderr, "Using cert: %s\nUsing cert key: %s\n", certFile, keyFile)
+		if !quiet {
+			fmt.Fprintf(os.Stderr, "Serving %s on %s (tls)\n", path, addr)
+			fmt.Fprintf(os.Stderr, "Using cert: %s\nUsing cert key: %s\n", certFile, keyFile)
+		}
 		if err := http.ListenAndServeTLS(addr, certFile, keyFile, nil); err != nil {
 			log.Fatal(err)
 		}
 	} else {
-		fmt.Fprintf(os.Stderr, "Serving %s on %s\n", path, addr)
+		if !quiet {
+			fmt.Fprintf(os.Stderr, "Serving %s on %s\n", path, addr)
+		}
 		if err := http.ListenAndServe(addr, nil); err != nil {
 			log.Fatal(err)
 		}
