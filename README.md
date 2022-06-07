@@ -19,7 +19,7 @@ to install the latest version to `$GOPATH/bin`:
 
 	usage: sghs [-l string] [-p path] [-q] [-t string]
 	where:
-	  -c                            chroot to the path that is being served
+	  -c 				chroot to the path that is being served
 	  -l string			listen string "[address]:port" (default ":8080")
 	  -p path			path to serve (default ".")
 	  -q				quiet mode (don't print logs)
