@@ -28,7 +28,6 @@ func logHandler(h http.Handler) http.Handler {
 
 func init() {
 	flag.StringVar(&addr, "l", ":8080", "[address]:port to listen on")
-	flag.BoolVar(&chroot, "c", false, "chroot to the path given with -p")
 	flag.BoolVar(&quiet, "q", false, "turn on quiet mode (don't print logs)")
 	flag.StringVar(&path, "p", ".", "path to serve")
 	flag.StringVar(&tls, "t", "", "tls cert and key path in the format of: 'cert_path:key_path'")
@@ -60,11 +59,9 @@ func main() {
 	// use the logHandler
 	http.Handle("/", logHandler(http.FileServer(http.Dir(path))))
 
-	// chroot if requested
-	if chroot {
-		syscall.Chdir(path)
-		syscall.Chroot(path)
-	}
+	// chroot
+	syscall.Chdir(path)
+	syscall.Chroot(path)
 
 	// if tls cert has been given, serve tls
 	// otherwise serve plain http
